@@ -42,7 +42,7 @@ import static android.telecom.TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE
 
 
 /** PluginCodelabPlugin */
-public class PluginCodelabPlugin implements FlutterPlugin, MethodCallHandler {
+public class PluginCodelabPlugin implements FlutterPlugin, MethodCallHandler{
   private MethodChannel channel;
   //private Synth synth;
   private static final String channelName = "plugin_codelab";
@@ -81,7 +81,7 @@ public class PluginCodelabPlugin implements FlutterPlugin, MethodCallHandler {
         result.error("1", ex.getMessage(), ex.getStackTrace());
       }
     } else if (call.method.equals("androidphone")) {
-      Toast.makeText(PluginCodelabPlugin.this, "Started theMethodChannel to makeCall", Toast.LENGTH_SHORT).show();
+      Toast.makeText(this, "Started theMethodChannel to makeCall", Toast.LENGTH_SHORT).show();
 
       // invokeMethodの第二引数で指定したパラメータを取得できます
       String parameters = call.arguments.toString();
