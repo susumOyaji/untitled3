@@ -1,4 +1,4 @@
-package com.example.untitled2;
+package com.example.untitled3;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -88,16 +88,18 @@ public class CallActivity extends  Activity {
         */
         // Subscribe to state change -> call updateUi when change
         new OngoingCall();
-        Disposable disposable = OngoingCall.state.subscribe(this.updateUi());
+        Disposable disposable = OngoingCall.state.subscribe(this::updateUi);
+        //Disposable disposable = OngoingCall.state.subscribe(this.updateUi());
         disposables.add(disposable);
 
         // Subscribe to state change (only when disconnected) -> call finish to close phone call
         new OngoingCall();
         Disposable disposable2 = OngoingCall.state
-                .filter(state == Call.STATE_DISCONNECTED)
+                .filter(state -> state == Call.STATE_DISCONNECTED)
                 .delay(1, TimeUnit.SECONDS)
                 .firstElement()
-                .subscribe(this.finish());
+                .subscribe(this::finish);
+                //.subscribe(this.finish());
 
         disposables.add(disposable2);
        

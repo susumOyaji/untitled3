@@ -1,4 +1,4 @@
-package com.example.untitled2;
+package com.example.untitled3;
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -9,11 +9,13 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 import java.util.ArrayList;
-
+//import java.lang.Object;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
-import io.flutter.plugins.GeneratedPluginRegistrant;
+
+//import io.flutter.plugins.GeneratedPluginRegistrant;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
@@ -42,14 +44,14 @@ import static android.telecom.TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE
 /** PluginCodelabPlugin */
 public class PluginCodelabPlugin implements FlutterPlugin, MethodCallHandler {
   private MethodChannel channel;
-  private Synth synth;
+  //private Synth synth;
   private static final String channelName = "plugin_codelab";
 
   private static void setup(PluginCodelabPlugin plugin, BinaryMessenger binaryMessenger) {
     plugin.channel = new MethodChannel(binaryMessenger, channelName);
     plugin.channel.setMethodCallHandler(plugin);
-    plugin.synth = new Synth();
-    plugin.synth.start();
+    //plugin.synth = new Synth();
+    //plugin.synth.start();
   }
 
 
@@ -65,16 +67,16 @@ public class PluginCodelabPlugin implements FlutterPlugin, MethodCallHandler {
     } else if (call.method.equals("onKeyDown")) {
       try {
         ArrayList arguments = (ArrayList) call.arguments;
-        int numKeysDown = synth.keyDown((Integer) arguments.get(0));
-        result.success(numKeysDown);
+        //int numKeysDown = synth.keyDown((Integer) arguments.get(0));
+        //result.success(numKeysDown);
       } catch (Exception ex) {
         result.error("1", ex.getMessage(), ex.getStackTrace());
       }
     } else if (call.method.equals("onKeyUp")) {
       try {
         ArrayList arguments = (ArrayList) call.arguments;
-        int numKeysDown = synth.keyUp((Integer) arguments.get(0));
-        result.success(numKeysDown);
+        //int numKeysDown = synth.keyUp((Integer) arguments.get(0));
+        //result.success(numKeysDown);
       } catch (Exception ex) {
         result.error("1", ex.getMessage(), ex.getStackTrace());
       }
