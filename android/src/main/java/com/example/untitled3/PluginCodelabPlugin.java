@@ -64,15 +64,15 @@ public class PluginCodelabPlugin implements FlutterPlugin, MethodCallHandler{
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     if (call.method.equals("getPlatformVersion")) {
       result.success("Android " + android.os.Build.VERSION.RELEASE);
-    } else if (call.method.equals("onKeyDown")) {
+    } else if (call.method.equals("getBatteryLevel")) {
+
       try {
-        ArrayList arguments = (ArrayList) call.arguments;
-        //int numKeysDown = synth.keyDown((Integer) arguments.get(0));
-        //result.success(numKeysDown);
+        int batteryLevel = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
+        result.success("Battery " +batteryLevel);
       } catch (Exception ex) {
         result.error("1", ex.getMessage(), ex.getStackTrace());
       }
-    } else if (call.method.equals("onKeyUp")) {
+    } else if (call.method.equals("getTelephonyInfo")) {
       try {
         ArrayList arguments = (ArrayList) call.arguments;
         //int numKeysDown = synth.keyUp((Integer) arguments.get(0));
