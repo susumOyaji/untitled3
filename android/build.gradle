@@ -10,6 +10,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.0'
         //classpath 'me.tatarka:gradle-retrolambda:+'
+        
     }
 }
 
@@ -36,7 +37,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+  
 }
+
+
 
 dependencies {
     //implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"

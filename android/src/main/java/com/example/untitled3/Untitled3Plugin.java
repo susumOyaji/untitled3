@@ -11,6 +11,13 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 */
 
 import androidx.annotation.NonNull;
+import android.content.IntentFilter;
+import android.content.Intent;
+import android.content.Context;
+import android.content.BroadcastReceiver;
+import android.os.BatteryManager;
+import android.os.Bundle;
+import android.app.Activity;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
@@ -29,6 +36,10 @@ public class Untitled3Plugin implements FlutterPlugin, MethodCallHandler {
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
   /// when the Flutter Engine is detached from the Activity
   private MethodChannel channel;
+  //IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+  //Intent batteryStatus = getBaseContext.registerReceiver(null, ifilter);
+    
+
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
@@ -52,12 +63,35 @@ public class Untitled3Plugin implements FlutterPlugin, MethodCallHandler {
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
+    
+    
     if (call.method.equals("getPlatformVersion")) {
       result.success("Android " + android.os.Build.VERSION.RELEASE);
+    } else if (call.method.equals("getPlatformBattery")) {
+      //int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+      //int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+      //float batteryPct = level * 100 / (float)scale;
+      result.success("BatteryLevel ");
+    }else if (call.method == "androidphone") {
+
+       // SubClass のインスタンス生成
+      app = new App();
+       
+      //Toast.makeText(this@VscodepluginPlugin, "Started theMethodChannel to makeCall", Toast.LENGTH_SHORT).show()
+
+      // invokeMethodの第二引数で指定したパラメータを取得できます
+      //parameters = call.arguments.toString();
+      //val phonestate = makeCall(parameters);
+     
     } else {
-      result.notImplemented();
+      result.notImplemented(); //該当するメソッドが実装されていない
     }
+  
+    
   }
+
+
+ 
 
   @Override
   public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {

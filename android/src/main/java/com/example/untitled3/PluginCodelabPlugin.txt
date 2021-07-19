@@ -64,34 +64,27 @@ public class PluginCodelabPlugin implements FlutterPlugin, MethodCallHandler{
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     if (call.method.equals("getPlatformVersion")) {
       result.success("Android " + android.os.Build.VERSION.RELEASE);
-    } else if (call.method.equals("getBatteryLevel")) {
-
+    } else if (call.method.equals("getPlatformBattery")) {
       try {
-        int batteryLevel = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
-        result.success("Battery " +batteryLevel);
+        int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+        float batteryPct = level * 100 / (float)scale;//現在の電池残量を特定する
+        result.success("Battery " + batteryPct);
       } catch (Exception ex) {
         result.error("1", ex.getMessage(), ex.getStackTrace());
       }
-    } else if (call.method.equals("getTelephonyInfo")) {
-      try {
-        ArrayList arguments = (ArrayList) call.arguments;
-        //int numKeysDown = synth.keyUp((Integer) arguments.get(0));
-        //result.success(numKeysDown);
-      } catch (Exception ex) {
-        result.error("1", ex.getMessage(), ex.getStackTrace());
-      }
-    } else if (call.method.equals("androidphone")) {
-      Toast.makeText(this, "Started theMethodChannel to makeCall", Toast.LENGTH_SHORT).show();
+      } else if (call.method.equals("getTelephonyInfo")) {
+        Toast.makeText(this, "Started theMethodChannel to makeCall", Toast.LENGTH_SHORT).show();
 
-      // invokeMethodの第二引数で指定したパラメータを取得できます
-      String parameters = call.arguments.toString();
-      String phonestate = makeCall(parameters);
+        // invokeMethodの第二引数で指定したパラメータを取得できます
+        String parameters = call.arguments.toString();
+        String phonestate = makeCall(parameters);
       
-      if (phonestate != null) {
-        result.success(phonestate);//return to Flutter
-      } else {
-        result.error("UNAVAILABLE", "AndroidPhone not available.", null);
-      }
+        if (phonestate != null) {
+          result.success(phonestate);//return to Flutter
+        } else {
+          result.error("UNAVAILABLE", "AndroidPhone not available.", null);
+        }
     }else {
       result.notImplemented();
     }

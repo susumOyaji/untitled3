@@ -132,7 +132,7 @@ public class DialerActivity extends FlutterActivity {
                       } // TODO
 
 
-                     /*
+                     
                       if (call.method.equals("hangup")) {
                         Toast.makeText(DialerActivity.this, "Started theMethodChannel to hangup ", Toast.LENGTH_SHORT).show();
                         // invokeMethodの第二引数で指定したパラメータを取得できます
@@ -147,7 +147,7 @@ public class DialerActivity extends FlutterActivity {
                       } else {
                         result.notImplemented();
                       } // TODO
-                      */
+                      
                      
                     }
                 }
