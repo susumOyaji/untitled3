@@ -1,8 +1,13 @@
 package com.example.untitled3;
 
+
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+
 import io.flutter.app.FlutterActivity;
-//import io.flutter.plugins.GeneratedPluginRegistrant;
+import io.flutter.embedding.Android.FlutterActivity;
+import io.flutter.plugins.GeneratedPluginRegistrant;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 /*
 import androidx.annotation.NonNull;
@@ -76,7 +81,7 @@ public class DialerActivity extends FlutterActivity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);    
-        //GeneratedPluginRegistrant.registerWith(this);
+        GeneratedPluginRegistrant.registerWith(FlutterEngine(this));
 
 
         Toast.makeText(DialerActivity.this, "Started the DialerActivity.app", Toast.LENGTH_SHORT).show();

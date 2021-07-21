@@ -26,11 +26,14 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
+//import io.flutter.plugins.GeneratedPluginRegistrant;
 
 
 
+//import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 
-
+//import android.content.pm.PackageManager;
 //import android.support.annotation.NonNull;
 import androidx.annotation.NonNull;
 
@@ -56,7 +59,8 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.telecom.TelecomManager.ACTION_CHANGE_DEFAULT_DIALER;
 import static android.telecom.TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME;
 import android.annotation.SuppressLint;
-
+//import java.lang.SecurityManager;
+//import androidx.core.content.PermissionChecker;
 
 /** Untitled3Plugin */
 public class Untitled3Plugin implements FlutterPlugin, MethodCallHandler {
@@ -164,7 +168,11 @@ public class Untitled3Plugin implements FlutterPlugin, MethodCallHandler {
   @SuppressLint("MissingPermission")
   public String makeCall(String _phone) {
       // If permission to call is granted
-      if (checkSelfPermission(CALL_PHONE) == PERMISSION_GRANTED) {
+      //パーミッションが取得済の場合は、PERMISSION_GRANTED
+      //パーミッションが未取得の場合は、PERMISSION_DENIEDを返す。
+      //互換モードの時（設定→拒否）の場合は、PERMISSION_DENIED_APP_OPを返す。（PermissionChecker.checkSelfPermissionのみ）
+      int permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
+      if (ActivityCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE) == PERMISSION_GRANTED) {
           // Create the Uri from phoneNumberInput
           Uri uri = Uri.parse("tel:"+ _phone);
           
