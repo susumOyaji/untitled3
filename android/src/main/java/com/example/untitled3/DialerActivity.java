@@ -5,10 +5,12 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
-import io.flutter.app.FlutterActivity;
-import io.flutter.embedding.Android.FlutterActivity;
-import io.flutter.plugins.GeneratedPluginRegistrant;
+//import io.flutter.app.FlutterActivity;非推奨
+import io.flutter.embedding.android.FlutterActivity;//推奨
+
+//import io.flutter.plugins.generatedpluginregistrant;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.embedding.engine.FlutterEngine;
 /*
 import androidx.annotation.NonNull;
 
@@ -20,15 +22,15 @@ import io.flutter.plugin.common.MethodChannel.Result;
 */
 
 
-
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
+//import android.os.Bundle;
 
 //import android.support.annotation.NonNull;
 import androidx.annotation.NonNull;
@@ -77,11 +79,11 @@ public class DialerActivity extends FlutterActivity {
     static final int REQUEST_CODE = 1;
     private static final int REQUEST_ID = 1;
 
-
+    
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);    
-        GeneratedPluginRegistrant.registerWith(FlutterEngine(this));
+        //GeneratedPluginRegistrant.registerWith(FlutterEngine(this));
 
 
         Toast.makeText(DialerActivity.this, "Started the DialerActivity.app", Toast.LENGTH_SHORT).show();
@@ -155,9 +157,24 @@ public class DialerActivity extends FlutterActivity {
                       
                      
                     }
-                }
-          );
+                }//MethodCallHandler
+          );//MethodChannel
     }
+    
+
+    /*
+    @Override
+    public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
+        GeneratedPluginRegistrant.registerWith(flutterEngine);
+        new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL)
+                .setMethodCallHandler(
+                    (call, result) -> {
+                        // Your existing code
+                }
+        );
+    }
+    */
+
 
     @Override
     public void onStart() {
