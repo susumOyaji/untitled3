@@ -17,6 +17,7 @@ import android.content.BroadcastReceiver;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.net.Uri;
+import android.app.Activity;
 //import android.widget.Toast;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -71,6 +72,7 @@ public class Untitled3Plugin implements FlutterPlugin, MethodCallHandler {
   private MethodChannel channel;
   String phoneNumberInput;
   String parameters;
+  String phonestate;
 
   private static final int REQUEST_PERMISSION = 0;
   static final int REQUEST_CODE = 1;
@@ -117,7 +119,7 @@ public class Untitled3Plugin implements FlutterPlugin, MethodCallHandler {
 
       // invokeMethodの第二引数で指定したパラメータを取得できます
       parameters = call.arguments.toString();
-      String phonestate = makeCall(parameters);
+      phonestate = DialerActivity.makeCall(parameters);
       
       if (phonestate != null) {
         result.success(phonestate);//return to Flutter
@@ -165,19 +167,21 @@ public class Untitled3Plugin implements FlutterPlugin, MethodCallHandler {
   }
 
 
+
+  /*
   @SuppressLint("MissingPermission")
   public String makeCall(String _phone) {
       // If permission to call is granted
       //パーミッションが取得済の場合は、PERMISSION_GRANTED
       //パーミッションが未取得の場合は、PERMISSION_DENIEDを返す。
       //互換モードの時（設定→拒否）の場合は、PERMISSION_DENIED_APP_OPを返す。（PermissionChecker.checkSelfPermissionのみ）
-      int permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
+      //int permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
       if (ActivityCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE) == PERMISSION_GRANTED) {
           // Create the Uri from phoneNumberInput
           Uri uri = Uri.parse("tel:"+ _phone);
           
           // Start call to the number in input
-          startActivity(new Intent(Intent.ACTION_CALL, uri));
+          activity.startActivity(new Intent(Intent.ACTION_CALL, uri));
       } else {
           // Request permission to call
           ActivityCompat.requestPermissions(Untitled3Plugin.this, new String[]{CALL_PHONE}, REQUEST_PERMISSION);
@@ -188,15 +192,16 @@ public class Untitled3Plugin implements FlutterPlugin, MethodCallHandler {
       
       return tv;
   }
-
+  
+  */
    
   public boolean hangup(boolean hangup) {
     ///Toast.makeText(Untitled3Plugin.this, "hangup  to True ", Toast.LENGTH_SHORT).show();
-    //CallActivity.onHangup();
+    CallActivity.onHangup();
     OngoingCall.hangup();
     return true;
   }
-
+    
 
 
 
