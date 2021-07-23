@@ -72,7 +72,9 @@ public class Untitled3Plugin implements FlutterPlugin, MethodCallHandler {
   private MethodChannel channel;
   String phoneNumberInput;
   String parameters;
-  String phonestate;
+
+  DialerActivity dialeractivity  = new DialerActivity();
+  //String phonestate;
 
   private static final int REQUEST_PERMISSION = 0;
   static final int REQUEST_CODE = 1;
@@ -119,7 +121,7 @@ public class Untitled3Plugin implements FlutterPlugin, MethodCallHandler {
 
       // invokeMethodの第二引数で指定したパラメータを取得できます
       parameters = call.arguments.toString();
-      phonestate = DialerActivity.makeCall(parameters);
+      String phonestate = dialeractivity.makeCall(parameters);
       
       if (phonestate != null) {
         result.success(phonestate);//return to Flutter
@@ -197,7 +199,7 @@ public class Untitled3Plugin implements FlutterPlugin, MethodCallHandler {
    
   public boolean hangup(boolean hangup) {
     ///Toast.makeText(Untitled3Plugin.this, "hangup  to True ", Toast.LENGTH_SHORT).show();
-    CallActivity.onHangup();
+    //CallActivity.onHangup();
     OngoingCall.hangup();
     return true;
   }
