@@ -116,18 +116,18 @@ public class Untitled3Plugin implements FlutterPlugin, MethodCallHandler {
       //int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
       //float batteryPct = level * 100 / (float)scale;
       result.success("BatteryLevel ");
-    }else if (call.method.equals("androidphone")) {
+    }else if (call.method.equals("getPlatformTelephony")) {
       ///Toast.makeText(Untitled3Plugin.this, "Started theMethodChannel to makeCall", Toast.LENGTH_SHORT).show();
-
+    
       // invokeMethodの第二引数で指定したパラメータを取得できます
-      parameters = call.arguments.toString();
-      String phonestate = dialeractivity.makeCall(parameters);
+      //parameters = call.arguments.toString();
+      //String phonestate = dialeractivity.makeCall(parameters);
       
-      if (phonestate != null) {
-        result.success(phonestate);//return to Flutter
-      } else {
-        result.error("UNAVAILABLE", "AndroidPhone not available.", null);
-      }
+      //if (phonestate != null) {
+        result.success("phonestate");//return to Flutter
+      //} else {
+      //  result.error("UNAVAILABLE", "AndroidPhone not available.", null);
+      //}
     } else {
             if (call.method.equals("hangup")) {
               ///Toast.makeText(Untitled3Plugin.this, "Started theMethodChannel to hangup ", Toast.LENGTH_SHORT).show();

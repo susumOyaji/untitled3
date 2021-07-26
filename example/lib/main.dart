@@ -15,6 +15,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
+  String _platformTelephony = 'Unknown';
+  String _platformBattery = 'Unknown';
 
   @override
   void initState() {
@@ -25,11 +27,26 @@ class _MyAppState extends State<MyApp> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     String platformVersion;
+    String platformTelephony;
+    String platformBattery;
+
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       platformVersion = await Untitled3.platformVersion;
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
+    }
+
+    try {
+      platformBattery = await Untitled3.platformBattery;
+    } on PlatformException {
+      platformVersion = 'Failed to get platform Battery.';
+    }
+
+    try {
+      platformTelephony = await Untitled3.platformTelephony;
+    } on PlatformException {
+      platformTelephony = 'Failed to get platform Telphony.';
     }
 
     // If the widget was removed from the tree while the asynchronous platform
@@ -39,6 +56,8 @@ class _MyAppState extends State<MyApp> {
 
     setState(() {
       _platformVersion = platformVersion;
+      _platformTelephony = platformTelephony;
+      _platformBattery = platformBattery;
     });
   }
 
@@ -46,13 +65,16 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
-      ),
+          appBar: AppBar(
+            title: const Text('Plugin example app'),
+          ),
+          body: Column(
+            children: [
+              Center(child: Text('Running on: $_platformVersion\n')),
+              Center(child: Text('Running on: $_platformBattery\n')),
+              Center(child: Text('Running on: $_platformTelephony\n')),
+            ],
+          )),
     );
   }
 }

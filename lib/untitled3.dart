@@ -17,7 +17,7 @@ class Untitled3 {
 
   static Future<String> get platformTelephony async {
     final String telephonyInfo =
-        await _channel.invokeMethod('getTelephonyInfo');
+        await _channel.invokeMethod('getPlatformTelephony');
     return telephonyInfo;
   }
 }
