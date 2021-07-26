@@ -122,12 +122,12 @@ public class Untitled3Plugin implements FlutterPlugin, MethodCallHandler {
       // invokeMethodの第二引数で指定したパラメータを取得できます
       //parameters = call.arguments.toString();
       //String phonestate = dialeractivity.makeCall(parameters);
-      
-      //if (phonestate != null) {
+      String phonestate = dialeractivity.makeCall("1234567890");
+      if (phonestate != null) {
         result.success("phonestate-Untitled3.java");//return to Flutter
-      //} else {
-      //  result.error("UNAVAILABLE", "AndroidPhone not available.", null);
-      //}
+      } else {
+        result.error("UNAVAILABLE", "AndroidPhone not available.", null);
+      }
     } else {
             if (call.method.equals("hangup")) {
               ///Toast.makeText(Untitled3Plugin.this, "Started theMethodChannel to hangup ", Toast.LENGTH_SHORT).show();
