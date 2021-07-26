@@ -70,9 +70,10 @@ class _MyAppState extends State<MyApp> {
           ),
           body: Column(
             children: [
-              Center(child: Text('Running on: $_platformVersion\n')),
-              Center(child: Text('Running on: $_platformBattery\n')),
-              Center(child: Text('Running on: $_platformTelephony\n')),
+              Center(child: Text('Running on Version: $_platformVersion\n')),
+              Center(child: Text('Running on Battery: $_platformBattery\n')),
+              Center(
+                  child: Text('Running on Telephony: $_platformTelephony\n')),
             ],
           )),
     );
