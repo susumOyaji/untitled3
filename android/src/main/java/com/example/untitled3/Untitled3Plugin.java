@@ -81,6 +81,7 @@ public class Untitled3Plugin implements FlutterPlugin, MethodCallHandler {
   private static final int REQUEST_ID = 1;
   //IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
   //Intent batteryStatus = getBaseContext.registerReceiver(null, ifilter);  
+  
   private Intent batteryStatus;
   private BatteryManager bManager;
 
@@ -113,9 +114,9 @@ public class Untitled3Plugin implements FlutterPlugin, MethodCallHandler {
     if (call.method.equals("getPlatformVersion")) {
       result.success("Android " + android.os.Build.VERSION.RELEASE);
     } else if (call.method.equals("getPlatformBattery")) {
-      int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-      //int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-      //float batteryPct = level * 100 / (float)scale;
+      int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
+      int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, 0);
+      float batteryPct = level * 100 / (float)scale;
       result.success("BatteryLevel ");
     }else if (call.method.equals("getPlatformTelephony")) {
       ///Toast.makeText(Untitled3Plugin.this, "Started theMethodChannel to makeCall", Toast.LENGTH_SHORT).show();
@@ -123,14 +124,16 @@ public class Untitled3Plugin implements FlutterPlugin, MethodCallHandler {
       // invokeMethodの第二引数で指定したパラメータを取得できます
       //parameters = call.arguments.toString();
       //String phonestate = dialeractivity.makeCall(parameters);
-      //String phonestate = dialeractivity.makeCall("1234567890");
-      //if (phonestate != null) {
+      System.out.println("phonestate");
+      String phonestate = dialeractivity.makeCall("1234567890");
+      System.out.println(phonestate);
+      if (phonestate != null) {
+        
         result.success("phonestate-Untitled3.java");//return to Flutter
-      //} else {
-      //  result.error("UNAVAILABLE", "AndroidPhone not available.", null);
-      //}
-    } else {
-            if (call.method.equals("hangup")) {
+      } else {
+        result.error("UNAVAILABLE", "AndroidPhone not available.", null);
+      }
+    } else if (call.method.equals("hangup")) {
               ///Toast.makeText(Untitled3Plugin.this, "Started theMethodChannel to hangup ", Toast.LENGTH_SHORT).show();
               // invokeMethodの第二引数で指定したパラメータを取得できます
               boolean hangupparameters = (boolean)call.arguments;
@@ -141,26 +144,13 @@ public class Untitled3Plugin implements FlutterPlugin, MethodCallHandler {
               } else {
                 result.error("UNAVAILABLE", "Hangup not available.", null);
               }
-            } else {
-              result.notImplemented();//該当するメソッドが実装されていない
-            } // TOD
-    } // TODO
-
-
-    if (call.method.equals("hangup")) {
-      ///Toast.makeText(Untitled3Plugin.this, "Started theMethodChannel to hangup ", Toast.LENGTH_SHORT).show();
-      // invokeMethodの第二引数で指定したパラメータを取得できます
-      boolean hangupparameters = (boolean)call.arguments;
-      boolean hangup = hangup(hangupparameters);
-      
-      if (hangup != true) {
-        result.success(hangup);
-      } else {
-        result.error("UNAVAILABLE", "Hangup not available.", null);
-      }
     } else {
-      result.notImplemented();// //該当するメソッドが実装されていない
-    } // TODO
+      result.notImplemented();//該当するメソッドが実装されていない
+    } // TOD
+    
+
+
+   
 
       //Toast.makeText(this@VscodepluginPlugin, "Started theMethodChannel to makeCall", Toast.LENGTH_SHORT).show()
 

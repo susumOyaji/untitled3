@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import android.view.View;
 import android.app.Activity;
+import android.Manifest;
+import androidx.core.content.ContextCompat;
 
 //import android.support.annotation.NonNull;
 import androidx.annotation.NonNull;
@@ -59,19 +61,39 @@ public class DialerActivity extends FlutterActivity {
 
     @SuppressLint("MissingPermission")
     public String makeCall(String phone) {
+        System.out.println(phone);
+
+        /*
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            // Android 6.0 のみ、該当パーミッションが許可されていない場合
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                // パーミッションが必要であることを明示するアプリケーション独自のUIを表示
+            }
+
+        } else {
+            // 許可済みの場合、もしくはAndroid 6.0以前
+            // パーミッションが必要な処理
+        }
+        */
+        int cameraPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        
+        /*
         // If permission to call is granted
-        if (checkSelfPermission(CALL_PHONE) == PERMISSION_GRANTED) {
+        if (checkSelfPermission(this,Manifest.permission.CALL_PHONE) == PERMISSION_GRANTED) {
             // Create the Uri from phoneNumberInput
-            Uri uri = Uri.parse("tel:"+phoneNumberInput.getText());
+            Uri uri = Uri.parse("tel:"+phone);
             // Start call to the number in input
             startActivity(new Intent(Intent.ACTION_CALL, uri));
         } else {
             // Request permission to call
             ActivityCompat.requestPermissions(this, new String[]{CALL_PHONE}, REQUEST_PERMISSION);
         }
+        */
         return "";
+        
     }
-
+    
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         ArrayList<Integer> grantRes = new ArrayList<>();
