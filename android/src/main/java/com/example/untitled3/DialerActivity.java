@@ -77,7 +77,7 @@ public class DialerActivity extends FlutterActivity {
         }
         */
         int cameraPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
-        
+        System.out.println(cameraPermission);
         /*
         // If permission to call is granted
         if (checkSelfPermission(this,Manifest.permission.CALL_PHONE) == PERMISSION_GRANTED) {
