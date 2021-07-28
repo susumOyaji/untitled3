@@ -10,6 +10,7 @@ import android.view.View;
 import android.app.Activity;
 import android.Manifest;
 import androidx.core.content.ContextCompat;
+import android.content.pm.PackageManager;
 
 //import android.support.annotation.NonNull;
 import androidx.annotation.NonNull;
@@ -36,6 +37,11 @@ import static android.telecom.TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE
 public class DialerActivity extends FlutterActivity {
     EditText phoneNumberInput;
     private static final int REQUEST_PERMISSION = 0;
+    private final static int REQUEST_CODE = 1000;
+    private final static String[] mPermission = {
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -61,7 +67,9 @@ public class DialerActivity extends FlutterActivity {
 
     @SuppressLint("MissingPermission")
     public String makeCall(String phone) {
-        System.out.println(phone);
+        System.out.println("makeCall = "+phone);
+
+        
 
         /*
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
@@ -76,20 +84,27 @@ public class DialerActivity extends FlutterActivity {
             // パーミッションが必要な処理
         }
         */
-        int cameraPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
-        System.out.println(cameraPermission);
-        /*
+         System.out.println("makeCall 1= "+phone);
+        if (ContextCompat.checkSelfPermission(this, mPermission[0]) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, mPermission[1]) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this, mPermission, REQUEST_CODE);
+        }
+       
+        System.out.println("makeCall 2= "+phone);
         // If permission to call is granted
-        if (checkSelfPermission(this,Manifest.permission.CALL_PHONE) == PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE) == PERMISSION_GRANTED) {
+            System.out.println("if makeCall");
             // Create the Uri from phoneNumberInput
             Uri uri = Uri.parse("tel:"+phone);
             // Start call to the number in input
             startActivity(new Intent(Intent.ACTION_CALL, uri));
         } else {
+             System.out.println("else makeCall");
             // Request permission to call
             ActivityCompat.requestPermissions(this, new String[]{CALL_PHONE}, REQUEST_PERMISSION);
         }
-        */
+        
         return "";
         
     }

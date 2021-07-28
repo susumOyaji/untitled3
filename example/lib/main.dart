@@ -4,6 +4,10 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:untitled3/untitled3.dart';
 
+//6758,200,1665
+//6976,300,1801
+//4755,400,1137
+//6857,0,0
 void main() {
   runApp(MyApp());
 }
