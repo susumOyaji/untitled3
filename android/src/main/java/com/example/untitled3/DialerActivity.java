@@ -22,6 +22,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import io.flutter.embedding.android.FlutterActivity;//推奨
+//import io.flutter.app.FlutterActivity;
+//import io.flutter.plugins.GeneratedPluginRegistrant;
 import androidx.core.app.ActivityCompat;
 
 import android.telecom.TelecomManager;
@@ -46,24 +48,102 @@ public class DialerActivity extends FlutterActivity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        GeneratedPluginRegistrant.registerWith(this);
+
+        //ユーザがDialerユーザインターフェイスを経由せずに通話を開始し、通話を確認することをアプリケーションに許可します。
+        ActivityCompat.requestPermissions(this, new String[]{
+            Manifest.permission.CALL_PHONE
+        }, REQUEST_CODE);
+        
+        
         setContentView(R.layout.activity_dialer);
 
         phoneNumberInput = findViewById(R.id.phoneNumberInput);
         // get Intent data (tel number)
         if (getIntent().getData() != null)
             phoneNumberInput.setText(getIntent().getData().getSchemeSpecificPart());
+
+
+
+        //new App();
+        new MethodChannel(getFlutterView(), CHANNEL).setMethodCallHandler(
+          new MethodCallHandler() {
+                    @Override
+                    public void onMethodCall(MethodCall call, Result result) {//TODO
+                      if (call.method.equals("androidphone")) {
+                        Toast.makeText(DialerActivity.this, "Started theMethodChannel to makeCall", Toast.LENGTH_SHORT).show();
+
+                        // invokeMethodの第二引数で指定したパラメータを取得できます
+                        parameters = call.arguments.toString();
+                        String phonestate = makeCall(parameters);
+                        
+                        if (phonestate != null) {
+                          result.success(phonestate);//return to Flutter
+                        } else {
+                          result.error("UNAVAILABLE", "AndroidPhone not available.", null);
+                        }
+                      } else {
+                              if (call.method.equals("hangup")) {
+                                Toast.makeText(DialerActivity.this, "Started theMethodChannel to hangup ", Toast.LENGTH_SHORT).show();
+                                // invokeMethodの第二引数で指定したパラメータを取得できます
+                                boolean hangupparameters = (boolean)call.arguments;
+                                boolean hangup = hangup(hangupparameters);
+                        
+                                if (hangup != true) {
+                                  result.success(hangup);
+                                } else {
+                                  result.error("UNAVAILABLE", "Hangup not available.", null);
+                                }
+                              } else {
+                                result.notImplemented();//該当するメソッドが実装されていない
+                              } // TOD
+                      } // TODO
+
+
+                     /*
+                      if (call.method.equals("hangup")) {
+                        Toast.makeText(DialerActivity.this, "Started theMethodChannel to hangup ", Toast.LENGTH_SHORT).show();
+                        // invokeMethodの第二引数で指定したパラメータを取得できます
+                        boolean hangupparameters = (boolean)call.arguments;
+                        boolean hangup = hangup(hangupparameters);
+                        
+                        if (hangup != true) {
+                          result.success(hangup);
+                        } else {
+                          result.error("UNAVAILABLE", "Hangup not available.", null);
+                        }
+                      } else {
+                        result.notImplemented();
+                      } // TODO
+                      */
+                     
+                    }
+                }
+          );
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public void onStart() {
         super.onStart();
         offerReplacingDefaultDialer();
-
-        phoneNumberInput.setOnEditorActionListener((v, actionId, event) -> {
-            makeCall("1234");
-            return true;
-        });
     }
+
+
+
+
 
     @SuppressLint("MissingPermission")
     public String makeCall(String phone) {
