@@ -1,54 +1,51 @@
 package com.example.untitled3;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-
-import android.view.View;
-import android.app.Activity;
-import android.Manifest;
-import androidx.core.content.ContextCompat;
-import android.content.pm.PackageManager;
-
-//import android.support.annotation.NonNull;
-import androidx.annotation.NonNull;
-
-//import android.support.v4.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
-
-//import android.support.v7.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatActivity;
-
-import io.flutter.embedding.android.FlutterActivity;//推奨
-//import io.flutter.app.FlutterActivity;
-//import io.flutter.plugins.GeneratedPluginRegistrant;
-import androidx.core.app.ActivityCompat;
-
 import android.telecom.TelecomManager;
 import android.widget.EditText;
+
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import io.flutter.embedding.android.FlutterActivity;
+import io.flutter.embedding.engine.FlutterEngine;
 
 import static android.Manifest.permission.CALL_PHONE;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.telecom.TelecomManager.ACTION_CHANGE_DEFAULT_DIALER;
 import static android.telecom.TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME;
 
+//import android.support.annotation.NonNull;
+//import android.support.v4.app.ActivityCompat;
+//import android.support.v7.app.AppCompatActivity;
+//import io.flutter.app.FlutterActivity;
+//import io.flutter.plugins.GeneratedPluginRegistrant;
+//import android.content.Intent;
+
+
 
 public class DialerActivity extends FlutterActivity {
     EditText phoneNumberInput;
     private static final int REQUEST_PERMISSION = 0;
     private final static int REQUEST_CODE = 1000;
-    private final static String[] mPermission = {
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-    };
+    //private final static String[] mPermission = {
+    //        Manifest.permission.ACCESS_FINE_LOCATION,
+    //        Manifest.permission.ACCESS_COARSE_LOCATION
+    //};
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        GeneratedPluginRegistrant.registerWith(this);
+        //GeneratedPluginRegistrant.registerWith(this);
+        //GeneratedPluginRegistrant.registerWith(new FlutterEngine(this));
+        GeneratedPluginRegistrant.registerWith(FlutterEngine(this));
+        //GeneratedPluginRegister.registerGeneratedPlugins(FlutterEngine(this));
 
         //ユーザがDialerユーザインターフェイスを経由せずに通話を開始し、通話を確認することをアプリケーションに許可します。
         ActivityCompat.requestPermissions(this, new String[]{
@@ -164,12 +161,7 @@ public class DialerActivity extends FlutterActivity {
             // パーミッションが必要な処理
         }
         */
-         System.out.println("makeCall 1= "+phone);
-        if (ContextCompat.checkSelfPermission(this, mPermission[0]) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, mPermission[1]) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                    this, mPermission, REQUEST_CODE);
-        }
+        System.out.println("makeCall 1= "+phone);
        
         System.out.println("makeCall 2= "+phone);
         // If permission to call is granted

@@ -1,10 +1,10 @@
 package com.example.untitled3;
 
 import android.app.Application;
-import android.os.Bundle;
-//import android.support.v7.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatActivity;
+
 import timber.log.Timber;
+
+//import android.support.v7.app.AppCompatActivity;
 
 public class App extends Application {
 
